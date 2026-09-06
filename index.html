@@ -125,11 +125,21 @@
        to its left of the 980px content column; hidden below that so it
        never overlaps text on narrower screens. */
     .side-logo {
-      position: fixed; left: 40px; top: 140px;
-      height: 184px; width: 184px; border-radius: 24px;
+      /* Scales with the actual gutter beside the 980px column: grows
+         toward 184px on very wide screens, shrinks smoothly as the
+         window narrows, and centers itself in whatever margin is left
+         — no hard jump between "full size" and "gone". */
+      --logo-gutter: calc((100vw - 980px) / 2);
+      --logo-size: clamp(36px, calc(var(--logo-gutter) - 48px), 184px);
+      position: fixed; top: 140px;
+      left: calc(var(--logo-gutter) / 2 - var(--logo-size) / 2);
+      height: var(--logo-size); width: var(--logo-size);
+      border-radius: calc(var(--logo-size) * 0.15);
       object-fit: cover; z-index: 20;
     }
-    @media (max-width: 1500px) {
+    @media (max-width: 1150px) {
+      /* Below this the margin can't fit even the smallest clamped size
+         without crowding the text column, so it steps out of the way. */
       .side-logo { display: none; }
     }
 
