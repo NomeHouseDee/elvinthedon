@@ -67,13 +67,13 @@
        re-skin. Everything downstream derives from these.
        ================================================================== */
     :root {
-      --paper:        #F1F2EE;  /* page background — soft, low-glare      */
-      --paper-deep:   #E6E8E2;  /* photo band — a quiet step darker       */
+      --paper:        #FFFFFF;  /* page background — pure white           */
+      --paper-deep:   #F2F2F2;  /* photo band — a quiet step darker       */
       --ink:          #23261F;  /* text — olive-black, softer than #000   */
       --ink-soft:     #5C6156;  /* secondary text                          */
-      --line:         #CBCEC5;  /* hairlines                               */
-      --accent:       #2F6D66;  /* THE one color. Change per artist.       */
-      --accent-soft:  #DDE7E2;  /* pale wash of the accent (tint it too)   */
+      --line:         #D9D3D3;  /* hairlines                               */
+      --accent:       #7A2E2E;  /* THE one color. Dark red (oxblood).      */
+      --accent-soft:  #F1DEDE;  /* pale wash of the accent (tint it too)   */
       --font: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
       --frame-radius: 10px;     /* rounding on media = approachable; set
                                    to 0 for a harder, art-house feel       */
@@ -116,6 +116,9 @@
       border-bottom: 1px solid var(--line);
       font-size: 0.8rem; letter-spacing: 0.06em;
     }
+    .topbar .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { height: 30px; width: 30px; border-radius: 6px;
+      display: block; object-fit: cover; }
     .topbar .wordmark { font-weight: 500; text-transform: uppercase;
       color: var(--ink-soft); }
     .topbar a { font-weight: 500; }
@@ -265,7 +268,10 @@
 <!-- Contact visible at the very top: an editor should never scroll to
      find out who to reply to. -->
 <div class="topbar">
-  <span class="wordmark">ElvinTheDon &mdash; press kit</span>
+  <div class="brand">
+    <img src="assets/hekta-logo.png" alt="Hekta Music Group" class="brand-logo" width="30" height="30" />
+    <span class="wordmark">ElvinTheDon &mdash; press kit</span>
+  </div>
   <a href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a>
 </div>
 
