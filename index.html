@@ -139,27 +139,46 @@
     .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--edge); }
 
     /* --- THE GLASS PRIMITIVE ------------------------------------------
-       A panel is: a low white tint (so it exists), a heavy blur (so the
+       A panel is: a white tint (so it exists), a heavy blur (so the
        ambient field smears behind it), a hairline border, and a bright
-       top lip via ::before that reads as light catching a bevelled edge.
+       top lip that reads as light catching a bevelled edge.
+
+       IMPORTANT — why the blur lives on ::after and not on .glass itself:
+       WebKit mis-composites CHILDREN of an element that combines
+       backdrop-filter with overflow:hidden. Iframes and images inside
+       such a box can render blank in Safari. Every Spotify player and
+       every press photo on this page sits inside a panel, so the blur is
+       applied to a pseudo-element layered BEHIND the content instead,
+       and the panel itself stays a plain positioned box. Do not move
+       backdrop-filter back onto .glass, and do not add overflow:hidden
+       to it — children carry their own border-radius instead.
        ------------------------------------------------------------- */
     .glass {
       position: relative;
+      border-radius: var(--r);
+      background: transparent;
+    }
+    /* the glass surface itself — behind the content, never containing it */
+    .glass::after {
+      content: ""; position: absolute; inset: 0; z-index: 0;
+      border-radius: inherit;
       background: linear-gradient(160deg, var(--glass-tint), var(--glass-tint2));
       -webkit-backdrop-filter: var(--glass-blur);
       backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-edge);
-      border-radius: var(--r);
       box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.85);
-      overflow: hidden;
+      pointer-events: none;
     }
     /* the specular lip — a 1px gradient that fades out toward the sides,
        which is what stops the border from looking like a plain stroke */
     .glass::before {
       content: ""; position: absolute; top: 0; left: 12%; right: 12%; height: 1px;
+      z-index: 2;
       background: linear-gradient(90deg, transparent, var(--glass-lip), transparent);
       pointer-events: none;
     }
+    /* content rides above the glass surface */
+    .glass > * { position: relative; z-index: 1; }
 
     .marker {
       font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
@@ -246,10 +265,6 @@
       white-space: nowrap; pointer-events: none; user-select: none; z-index: 0;
     }
     .hero-copy { position: relative; z-index: 1; }
-    .eyebrow {
-      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
-    }
     /* The name sets on two lines on purpose: "ELVINTHEDON" on one line
        forces the type down to fit the column, which wastes the hero. */
     h1 {
@@ -258,10 +273,6 @@
       font-variation-settings: 'opsz' 96; margin-bottom: 26px;
     }
     h1 span { display: block; }
-    .oneliner {
-      font-size: clamp(1.02rem, 1.5vw, 1.28rem); line-height: 1.5;
-      color: var(--ink-soft); max-width: 46ch;
-    }
     .hero-photo-frame {
       position: relative; z-index: 1; padding: 10px; border-radius: 32px;
     }
@@ -330,7 +341,10 @@
     /* --- PHOTOS ---------------------------------------------------------- */
     .photo-grid {
       display: grid; gap: 18px; margin-top: 8px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      /* capped track: with a single photo a 1fr track stretches it to the
+         full 1240px column, which swamps the page. Extra photos still
+         fill across as they are added. */
+      grid-template-columns: repeat(auto-fit, minmax(280px, 460px));
     }
     figure { padding: 10px; }
     figure img { width: 100%; height: auto; object-fit: cover; border-radius: 18px; }
@@ -446,9 +460,7 @@
       <span>ElvinTheDon</span>
     </div>
     <div class="hero-copy">
-      <p class="eyebrow">Electronic press kit &mdash; HipHop &mdash; Kumasi/Ghana</p>
       <h1 class="sheen"><span>Elvin</span><span>TheDon</span></h1>
-      <p class="oneliner">With a relaxed flow leaning towards Larry June and life lived lyric style that stands with Dave. Elvin brings a unique vibe, and voice, to the Ghana hiphop scene.</p>
       <p class="tags"><span>Asakaa</span><span>Ghanaian Hip Hop</span><span>Trap</span></p>
     </div>
     <div class="hero-photo-frame glass">
@@ -465,15 +477,15 @@
       <div class="track-grid">
         <div class="track glass">
           <p class="track-label">Crowd Favorite &mdash; &#x27;Beautiful Anthem&#x27;, 2026</p>
-          <iframe title="Spotify player — Beautiful Anthem" class="player" src="https://open.spotify.com/embed/track/4tAAF5qUAQOIMo1Q1utL6f" height="152" loading="lazy" allow="encrypted-media; fullscreen"></iframe>
+          <iframe title="Spotify player — Beautiful Anthem" class="player" src="https://open.spotify.com/embed/track/4tAAF5qUAQOIMo1Q1utL6f?utm_source=generator" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         </div>
         <div class="track glass">
           <p class="track-label">Team Favorite &mdash; &#x27;I Feel Like&#x27;, 2026</p>
-          <iframe title="Spotify player — I Feel Like" class="player" src="https://open.spotify.com/embed/track/4ZVGhlFIgojgmrCTYe8mMM" height="152" loading="lazy" allow="encrypted-media; fullscreen"></iframe>
+          <iframe title="Spotify player — I Feel Like" class="player" src="https://open.spotify.com/embed/track/4ZVGhlFIgojgmrCTYe8mMM?utm_source=generator" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         </div>
         <div class="track glass">
           <p class="track-label">Newest Single &mdash; &#x27;Bumpa&#x27;, 2026</p>
-          <iframe title="Spotify player — Bumpa" class="player" src="https://open.spotify.com/embed/track/5zPfV77HUheTAsIYyxgVUb" height="152" loading="lazy" allow="encrypted-media; fullscreen"></iframe>
+          <iframe title="Spotify player — Bumpa" class="player" src="https://open.spotify.com/embed/track/5zPfV77HUheTAsIYyxgVUb?utm_source=generator" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         </div>
       </div>
     </div>
@@ -617,7 +629,7 @@
 </main>
 
 <footer>
-  <span>ElvinTheDon &mdash; HipHop, Kumasi/Ghana. Presented by
+  <span>ElvinTheDon &mdash; presented by
     <a href="https://hektamusicgroup.com" rel="noopener">Hekta Music Group</a>.</span>
   <span>Press contact: <a href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a></span>
 </footer>
