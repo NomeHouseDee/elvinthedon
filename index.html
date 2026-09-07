@@ -309,12 +309,21 @@
       display: grid; gap: 20px;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     }
-    .track { padding: 20px; }
+    /* Cards must line up even though the track titles differ in length.
+       Two things do that: the card is a flex column so the player can be
+       pushed to a common baseline, and the label reserves TWO lines'
+       height whether or not it wraps. Without the reserve, a title that
+       wraps (e.g. "Crowd Favorite — 'Beautiful Anthem', 2026") drops its
+       player ~21px below the others and the row reads as broken. */
+    .track { padding: 20px; display: flex; flex-direction: column; }
     .track-label {
       font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--ink-soft); margin-bottom: 14px;
+      line-height: 1.45; min-height: 2.9em;   /* == 2 lines */
     }
-    .player { border: 0; width: 100%; border-radius: 14px; }
+    .player { border: 0; width: 100%; border-radius: 14px;
+      margin-top: auto;                        /* common baseline */
+    }
 
     /* --- BODY ------------------------------------------------------------ */
     .body-copy {
@@ -322,11 +331,13 @@
       margin-bottom: 18px; color: var(--ink);
     }
     .body-copy:last-child { margin-bottom: 0; }
-    .two-col {
-      display: grid; gap: clamp(20px, 3vw, 32px);
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
     .pane { padding: clamp(26px, 3vw, 40px); }
+    /* Prose runs in ONE pane. The pane is capped rather than full-bleed:
+       body copy is held to a ~60ch measure for readability, so a
+       full-width pane would sit mostly empty to the right — which is
+       exactly what the split two-pane version looked like. */
+    .prose { max-width: 940px; }
+    .prose .body-copy { max-width: 68ch; }
 
     /* --- NUMBERS --------------------------------------------------------- */
     .stat-grid {
@@ -594,14 +605,10 @@
     <div class="wrap">
       <p class="marker">Bio</p>
       <h2 class="sec-title sheen">Bio</h2>
-      <div class="two-col">
-        <div class="pane glass">
-          <p class="body-copy">elvinthedon is a rising global artist shaping the future of hip-hop with a sound that moves beyond borders. Blending powerful lyricism, melodic energy, and international influences, his music reflects ambition, vision, and the mindset of an artist built for the world stage.</p>
-          <p class="body-copy">With the release of THE RED GENESIS, elvinthedon steps into a defining era &mdash; a bold introduction to his artistry, driven by passion, discipline, and a relentless pursuit of greatness. His sound bridges cultures, fusing modern hip-hop with global rhythms to create music that resonates worldwide.</p>
-        </div>
-        <div class="pane glass">
-          <p class="body-copy">Independent and forward-thinking, elvinthedon represents the new generation of artists turning vision into legacy &mdash; one record, one stage, and one city at a time.</p>
-        </div>
+      <div class="pane prose glass">
+        <p class="body-copy">elvinthedon is a rising global artist shaping the future of hip-hop with a sound that moves beyond borders. Blending powerful lyricism, melodic energy, and international influences, his music reflects ambition, vision, and the mindset of an artist built for the world stage.</p>
+        <p class="body-copy">With the release of THE RED GENESIS, elvinthedon steps into a defining era &mdash; a bold introduction to his artistry, driven by passion, discipline, and a relentless pursuit of greatness. His sound bridges cultures, fusing modern hip-hop with global rhythms to create music that resonates worldwide.</p>
+        <p class="body-copy">Independent and forward-thinking, elvinthedon represents the new generation of artists turning vision into legacy &mdash; one record, one stage, and one city at a time.</p>
       </div>
     </div>
   </section>
@@ -612,13 +619,9 @@
     <div class="wrap">
       <p class="marker">Momentum</p>
       <h2 class="sec-title sheen">Momentum</h2>
-      <div class="two-col">
-        <div class="pane glass">
-          <p class="body-copy">Since breaking out in early 2026, Elvinthedon has become one of Ghana&#x27;s fastest-rising new voices &mdash; streams up more than 30x over the past year, monthly listeners multiplying 15-fold, all built on pure organic momentum with zero major playlist or label push behind it (until now).</p>
-        </div>
-        <div class="pane glass">
-          <p class="body-copy">That momentum now comes with real infrastructure behind it: Hekta Music Group has partnered with RainLabs &mdash; the Accra- and London-based label services company behind acts like Joey B and Cina Soul, with distribution reaching 128+ streaming platforms worldwide &mdash; to take Elvinthedon&#x27;s music to a much bigger stage. The momentum isn&#x27;t just holding, it&#x27;s compounding &mdash; the infrastructure is in place to match it.</p>
-        </div>
+      <div class="pane prose glass">
+        <p class="body-copy">Since breaking out in early 2026, Elvinthedon has become one of Ghana&#x27;s fastest-rising new voices &mdash; streams up more than 30x over the past year, monthly listeners multiplying 15-fold, all built on pure organic momentum with zero major playlist or label push behind it (until now).</p>
+        <p class="body-copy">That momentum now comes with real infrastructure behind it: Hekta Music Group has partnered with RainLabs &mdash; the Accra- and London-based label services company behind acts like Joey B and Cina Soul, with distribution reaching 128+ streaming platforms worldwide &mdash; to take Elvinthedon&#x27;s music to a much bigger stage. The momentum isn&#x27;t just holding, it&#x27;s compounding &mdash; the infrastructure is in place to match it.</p>
       </div>
     </div>
   </section>
