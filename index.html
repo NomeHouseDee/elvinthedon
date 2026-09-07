@@ -138,6 +138,10 @@
 
     .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--edge); }
 
+    /* content layer — sits above the fixed side logo (z-index 0), below
+       the sticky nav (z-index 40). */
+    main { position: relative; z-index: 1; }
+
     /* --- THE GLASS PRIMITIVE ------------------------------------------
        A panel is: a white tint (so it exists), a heavy blur (so the
        ambient field smears behind it), a hairline border, and a bright
@@ -240,8 +244,13 @@
       position: fixed; top: 148px;
       left: calc(var(--logo-gutter) / 2 - var(--logo-size) / 2);
       height: var(--logo-size); width: var(--logo-size);
-      object-fit: cover; z-index: 20; opacity: 0.92;
+      object-fit: cover; opacity: 0.92;
       border-radius: 18px;
+      /* z-index 0, and <main> is lifted to 1 below: the mark is fixed, so
+         at any scroll position it can drift under a panel. Sitting below
+         the content layer means the page always wins that overlap
+         instead of the logo punching through it. */
+      z-index: 0;
     }
     @media (max-width: 1420px) { .side-logo { display: none; } }
 
@@ -381,6 +390,16 @@
                   inset 0 1px 0 rgba(255, 255, 255, 0.22);
     }
     .cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    /* The record turns continuously — a stopped record reads as broken.
+       The label wedge and sheen are deliberately ASYMMETRIC: a purely
+       concentric disc looks identical at every angle, so the rotation
+       would be invisible. Killed by the reduced-motion block above. */
+    .cta .record {
+      width: 32px; height: 32px; flex-shrink: 0; display: block;
+      animation: spin 3.4s linear infinite;
+    }
+    .cta:hover .record { animation-duration: 1.4s; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     /* --- RELEASES -------------------------------------------------------- */
     .release-list { list-style: none; display: grid; gap: 16px; }
@@ -617,7 +636,7 @@
           <span class="rel-note">
             <span class="rel-tag">Upcoming release</span>
             <span class="rel-date">September 25th, 2026</span>
-            <a class="cta" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request">Request early access &rarr;</a>
+            <a class="cta" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request"><svg class="record" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="49" fill="#141416"/><path d="M50 1a49 49 0 0 1 34.6 83.6L50 50Z" fill="#ffffff" opacity=".07"/><circle cx="50" cy="50" r="40" fill="none" stroke="#ffffff" stroke-opacity=".30" stroke-width="2"/><circle cx="50" cy="50" r="32" fill="none" stroke="#ffffff" stroke-opacity=".23" stroke-width="2"/><circle cx="50" cy="50" r="24" fill="none" stroke="#ffffff" stroke-opacity=".17" stroke-width="2"/><circle cx="50" cy="50" r="16" fill="#EFEBE4"/><path d="M50 34a16 16 0 0 1 0 32Z" fill="#C4B6A8"/><circle cx="50" cy="50" r="3.4" fill="#7A2E2E"/></svg>Request early access &rarr;</a>
           </span>
         </li>
       </ul>
