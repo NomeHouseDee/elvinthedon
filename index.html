@@ -13,9 +13,12 @@
        KNOB 1 — the accent (--accent / --accent-deep). --accent must stay
          legible on --ground: check it at
          https://webaim.org/resources/contrastchecker/ and keep it at or
-         above 4.5:1 for body text. Oxblood #7A2E2E measures 2.13:1 on
-         this ground and is therefore ONLY used as a solid fill behind
-         off-white text (--accent-deep), never as text itself.
+         above 4.5:1 for body text. #E86258 measures 5.95:1. Oxblood
+         #7A2E2E measures 2.13:1 on this ground and is therefore ONLY
+         used as a solid fill behind off-white text (--accent-deep),
+         never as text itself. Secondary text (--ink-soft) runs 10.7:1
+         and hairlines (--line) 2.6:1 — dividers are non-text, but at
+         the old 1.4:1 they were effectively invisible.
        KNOB 2 — the ground (--ground / --panel / --ink). Keep the ground
          near-black but not pure #000 — the slight warmth stops the page
          from looking like a terminal, and it matches the Hekta logo's
@@ -76,11 +79,11 @@
       --ground:      #0A0A0C;  /* page ground — near-black, faintly warm */
       --panel:       #131316;  /* a quiet step up, for bands             */
       --ink:         #EDEBE6;  /* text — warm off-white (16.6:1)         */
-      --ink-soft:    #9A9791;  /* secondary text (6.8:1)                 */
-      --line:        #2A2A2E;  /* hairlines                              */
-      --accent:      #D6524A;  /* THE one color. 4.87:1 — safe as text.  */
+      --ink-soft:    #C2BEB6;  /* secondary text (10.7:1)                */
+      --line:        #52525C;  /* hairlines — 1.4:1 was near-invisible   */
+      --accent:      #E86258;  /* THE one color. 5.95:1 — safe as text.  */
       --accent-deep: #7A2E2E;  /* oxblood — FILL ONLY, never as text     */
-      --ghost:       rgba(214, 82, 74, 0.10);  /* outlined display type  */
+      --ghost:       rgba(232, 98, 88, 0.13);  /* outlined display type  */
       --font: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
 
       --gap:     28px;
