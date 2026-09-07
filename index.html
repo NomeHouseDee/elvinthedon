@@ -359,6 +359,29 @@
     }
     .dl:hover { background: rgba(122,46,46,0.10); color: var(--ink); }
 
+    /* --- PRIMARY CTA ---------------------------------------------------
+       The single action a journalist should take. Everything else on the
+       page is a ghost pill, so this is the only SOLID control — that
+       contrast in weight is what makes it read as the primary button.
+       White on oxblood measures 9.0:1. Keep exactly one of these. */
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.94rem; font-weight: 800; letter-spacing: 0.09em;
+      text-transform: uppercase; text-decoration: none; white-space: nowrap;
+      padding: 17px 30px; border-radius: 999px;
+      background: var(--accent); color: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      box-shadow: 0 10px 26px rgba(122, 46, 46, 0.34),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      transition: background 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+    }
+    .cta:hover {
+      background: var(--accent-deep); color: #FFFFFF; transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(122, 46, 46, 0.44),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+    .cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
     /* --- RELEASES -------------------------------------------------------- */
     .release-list { list-style: none; display: grid; gap: 16px; }
     .release-list li {
@@ -594,7 +617,7 @@
           <span class="rel-note">
             <span class="rel-tag">Upcoming release</span>
             <span class="rel-date">September 25th, 2026</span>
-            <a class="dl" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request">Request early access &rarr;</a>
+            <a class="cta" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request">Request early access &rarr;</a>
           </span>
         </li>
       </ul>
