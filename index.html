@@ -3,38 +3,40 @@
      ElvinTheDon — ELECTRONIC PRESS KIT
      Lives at: https://nomehousestudios.org/elvinthedon/  (GitHub Pages)
 
-     DESIGN SYSTEM — "loud deck" build.
-       This page deliberately runs a HIGH-CONTRAST, display-led system:
-       near-black ground, ONE red accent, oversized type, full-bleed
-       photography, and outlined "ghost" lettering as background texture.
-       The restraint-first version of this page was replaced on purpose —
-       the artist's numbers are large and the design is meant to flex them.
+     DESIGN SYSTEM — "liquid glass", light build.
+       Frosted white surfaces layered over a pale ambient colour field,
+       with near-black type and oversized display headings. Readability is
+       the priority: body ~19:1, secondary ~10:1, accent ~9:1 — all AAA.
 
-       KNOB 1 — the accent (--accent / --accent-deep). --accent must stay
-         legible on --ground: check it at
-         https://webaim.org/resources/contrastchecker/ and keep it at or
-         above 4.5:1 for body text. #E86258 measures 5.95:1. Oxblood
-         #7A2E2E measures 2.13:1 on this ground and is therefore ONLY
-         used as a solid fill behind off-white text (--accent-deep),
-         never as text itself. Secondary text (--ink-soft) runs 10.7:1
-         and hairlines (--line) 2.6:1 — dividers are non-text, but at
-         the old 1.4:1 they were effectively invisible.
-       KNOB 2 — the ground (--ground / --panel / --ink). Keep the ground
-         near-black but not pure #000 — the slight warmth stops the page
-         from looking like a terminal, and it matches the Hekta logo's
-         textured black so the logo dissolves into the page.
-       KNOB 3 — the typeface. One variable family doing all the work
-         (400 body / 500 labels / 800 display). Bricolage Grotesque's
-         optical-size axis is what makes the huge headings feel drawn
-         rather than scaled — that's why display type sets `opsz`.
+       THE ONE RULE THAT MAKES OR BREAKS THIS: glass only reads as glass
+       when there is something behind it to refract. The .ambient layer
+       (soft red + teal light pools, sampled from the accent and from the
+       press photo's own backdrop hue ~200) is not decoration — remove it
+       and every panel collapses into a flat grey box. If you re-skin,
+       re-tune .ambient FIRST, then the glass.
 
-       THE GHOST TYPE is the page's one flourish: outlined, very low
-       contrast, purely decorative, and aria-hidden so screen readers
-       never announce it. Do not add a second flourish on top of it.
+       KNOB 1 — the accent. On a WHITE ground the red must be DARK:
+         oxblood #7A2E2E measures 9.30:1 (AAA) and is safe as text
+         anywhere. The bright red the dark build used (#E86258) drops to
+         3.32:1 here and must never be text — inverting the page inverts
+         this requirement, so re-measure at
+         https://webaim.org/resources/contrastchecker/ if you re-skin.
+       KNOB 2 — the glass itself (--glass-*). In a light build the panels
+         are frosted WHITE over the tinted ambient field, so they read as
+         lighter than their surroundings. They need the border and the
+         shadow to stay legible as objects — without those, a white panel
+         on a white page disappears. Raising the tint here IMPROVES text
+         contrast, the opposite of the dark build.
+       KNOB 3 — the typeface. One variable family (400 body / 500 labels /
+         800 display). Bricolage Grotesque's optical-size axis is what
+         makes the huge headings feel drawn rather than scaled.
 
-     ADDING A NEW SECTION: <section class="sec"> -> <p class="marker">
-       -> <h2 class="sec-title"> -> content. The marker + oversized title
-       pairing is the page's rhythm; reuse it and new sections look native.
+       DO NOT: add a second accent hue, put glass on glass (two blurred
+       layers stacked read as mud), or animate the blur — it is the most
+       expensive property on the page.
+
+     ADDING A SECTION: <section class="sec"> -> <p class="marker"> ->
+       <h2 class="sec-title"> -> content, optionally wrapped in .glass.
      ===================================================================== -->
 <html lang="en">
 <head>
@@ -46,9 +48,8 @@
   <meta name="robots" content="noindex" />
 
   <!-- SHARE CARD — what an editor sees when this link lands in their
-       inbox, Slack, or a DM. Without these, the link previews as a blank
-       box, which reads as unfinished. Absolute URLs are required.
-       If the page moves domains, update og:url and og:image. -->
+       inbox, Slack, or a DM. Absolute URLs are required. If the page
+       moves domains, update og:url and og:image. -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ElvinTheDon — Press Kit" />
   <meta property="og:title" content="ElvinTheDon — Press Kit" />
@@ -64,7 +65,7 @@
   <meta name="twitter:description" content="HipHop from Kumasi, Ghana. 1.1M Spotify streams, 137K combined audience, new single 'no love' out September 25th 2026." />
   <meta name="twitter:image" content="https://nomehousestudios.org/elvinthedon/assets/og-image.jpg" />
 
-  <meta name="theme-color" content="#0A0A0C" />
+  <meta name="theme-color" content="#FFFFFF" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -72,24 +73,34 @@
 
   <style>
     /* ==================================================================
-       DESIGN TOKENS — the only place you should need to touch for a
-       re-skin. Everything downstream derives from these.
+       DESIGN TOKENS
        ================================================================== */
     :root {
-      --ground:      #0A0A0C;  /* page ground — near-black, faintly warm */
-      --panel:       #131316;  /* a quiet step up, for bands             */
-      --ink:         #EDEBE6;  /* text — warm off-white (16.6:1)         */
-      --ink-soft:    #C2BEB6;  /* secondary text (10.7:1)                */
-      --line:        #52525C;  /* hairlines — 1.4:1 was near-invisible   */
-      --accent:      #E86258;  /* THE one color. 5.95:1 — safe as text.  */
-      --accent-deep: #7A2E2E;  /* oxblood — FILL ONLY, never as text     */
-      --ghost:       rgba(232, 98, 88, 0.13);  /* outlined display type  */
-      --font: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+      --ground:      #FFFFFF;  /* page ground — white                    */
+      --ink:         #0A0A0C;  /* text — near-black (19.8:1)             */
+      --ink-soft:    #41414A;  /* secondary text (10.1:1 — AAA)          */
+      --accent:      #7A2E2E;  /* THE one color. Oxblood, 9.3:1 — AAA.   */
+      --accent-deep: #5E2020;  /* deeper oxblood, for solid fills        */
+      --teal:        #0F2A38;  /* sampled from the press photo backdrop  */
+      --ghost:       rgba(122, 46, 46, 0.15);
 
-      --gap:     28px;
-      --stanza:  120px;        /* vertical space between sections        */
+      /* --- glass ---
+         tint  = the white lift that makes a panel visible
+         edge  = the hairline that catches light along the top
+         blur  = how much of the ambient field bleeds through           */
+      --glass-tint:  rgba(255, 255, 255, 0.72);
+      --glass-tint2: rgba(255, 255, 255, 0.52);
+      --glass-edge:  rgba(15, 15, 20, 0.10);
+      --glass-lip:   rgba(255, 255, 255, 0.95);
+      --glass-blur:  blur(26px) saturate(175%);
+      --glass-shadow: 0 12px 40px rgba(16, 16, 24, 0.10);
+      --r:           26px;     /* corner radius — generous, not pill    */
+
+      --font: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+      --gap: 28px;
+      --stanza: 128px;
       --measure: 60ch;
-      --edge:    clamp(20px, 5vw, 64px);   /* page side padding          */
+      --edge: clamp(20px, 5vw, 64px);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -102,8 +113,21 @@
     body {
       background: var(--ground); color: var(--ink);
       font-family: var(--font); font-size: 17px; line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+      position: relative;
+    }
+
+    /* --- AMBIENT FIELD — what the glass refracts. Without this the
+           whole system collapses to grey boxes. Fixed so panels pick up
+           different light as the reader scrolls. --------------------- */
+    .ambient {
+      position: fixed; inset: -20vh -10vw; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(48vw 44vw at 12% 6%,  rgba(122, 46, 46, 0.13), transparent 62%),
+        radial-gradient(52vw 48vw at 88% 22%, rgba(15, 42, 56, 0.11),  transparent 64%),
+        radial-gradient(44vw 40vw at 24% 58%, rgba(122, 46, 46, 0.09), transparent 66%),
+        radial-gradient(50vw 46vw at 78% 88%, rgba(15, 42, 56, 0.12),  transparent 66%),
+        radial-gradient(40vw 36vw at 42% 96%, rgba(122, 46, 46, 0.07), transparent 62%);
     }
 
     a { color: var(--accent); text-decoration-thickness: 1px;
@@ -112,8 +136,30 @@
     a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     img { max-width: 100%; display: block; }
 
-    /* --- shared shell ------------------------------------------------ */
     .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--edge); }
+
+    /* --- THE GLASS PRIMITIVE ------------------------------------------
+       A panel is: a low white tint (so it exists), a heavy blur (so the
+       ambient field smears behind it), a hairline border, and a bright
+       top lip via ::before that reads as light catching a bevelled edge.
+       ------------------------------------------------------------- */
+    .glass {
+      position: relative;
+      background: linear-gradient(160deg, var(--glass-tint), var(--glass-tint2));
+      -webkit-backdrop-filter: var(--glass-blur);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-edge);
+      border-radius: var(--r);
+      box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.85);
+      overflow: hidden;
+    }
+    /* the specular lip — a 1px gradient that fades out toward the sides,
+       which is what stops the border from looking like a plain stroke */
+    .glass::before {
+      content: ""; position: absolute; top: 0; left: 12%; right: 12%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-lip), transparent);
+      pointer-events: none;
+    }
 
     .marker {
       font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
@@ -122,20 +168,25 @@
     }
     .marker::before {
       content: ""; width: 34px; height: 2px; background: var(--accent);
-      flex-shrink: 0;
+      flex-shrink: 0; border-radius: 2px;
     }
 
-    /* Oversized section headings. The opsz axis is what keeps these
-       looking drawn at size instead of merely enlarged. */
+    /* Display type gets a vertical sheen — the same trick as the glass
+       lip, applied to letterforms. Top stop stays near-white so the
+       gradient never drops the text below AA. */
+    .sheen {
+      background: linear-gradient(178deg, #08080A 6%, #16161B 48%, #33333B 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-fill-color: transparent;
+    }
+
     .sec-title {
       font-size: clamp(2.6rem, 8vw, 6rem); font-weight: 800;
       letter-spacing: -0.035em; line-height: 0.88; text-transform: uppercase;
       font-variation-settings: 'opsz' 96; margin-bottom: 34px;
     }
-
     .sec { position: relative; padding: var(--stanza) 0 0; }
 
-    /* --- GHOST TYPE — decorative outlined lettering ------------------- */
     .ghost {
       position: absolute; top: -2vw; left: 0; right: 0;
       font-size: clamp(6rem, 20vw, 17rem); font-weight: 800;
@@ -144,32 +195,38 @@
       white-space: nowrap; pointer-events: none; user-select: none;
       z-index: 0; overflow: hidden;
     }
-    .sec > .wrap, .sec > .band-inner { position: relative; z-index: 1; }
+    .sec > .wrap { position: relative; z-index: 1; }
 
-    /* --- TOP BAR ------------------------------------------------------ */
+    /* --- STICKY GLASS NAV ---------------------------------------------- */
+    .topbar-shell {
+      position: sticky; top: 14px; z-index: 40;
+      padding: 0 var(--edge); margin-top: 14px;
+    }
     .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; padding: 20px var(--edge);
-      border-bottom: 1px solid var(--line);
-      font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase;
       max-width: 1240px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; padding: 14px 22px;
+      font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase;
+      border-radius: 999px;
     }
     .topbar .wordmark { font-weight: 500; color: var(--ink-soft); }
-    .topbar a { font-weight: 500; letter-spacing: 0.06em; text-transform: none;
-      font-size: 0.85rem; }
+    .topbar a { font-weight: 500; letter-spacing: 0.04em; text-transform: none;
+      font-size: 0.86rem; text-decoration: none; }
+    .topbar a:hover { text-decoration: underline; }
 
-    /* --- SIDE LOGO — travels with the reader -------------------------- */
+    /* --- SIDE LOGO ----------------------------------------------------- */
     .side-logo {
       --logo-gutter: calc((100vw - 1240px) / 2);
       --logo-size: clamp(44px, calc(var(--logo-gutter) - 40px), 150px);
-      position: fixed; top: 132px;
+      position: fixed; top: 148px;
       left: calc(var(--logo-gutter) / 2 - var(--logo-size) / 2);
       height: var(--logo-size); width: var(--logo-size);
       object-fit: cover; z-index: 20; opacity: 0.92;
+      border-radius: 18px;
     }
     @media (max-width: 1420px) { .side-logo { display: none; } }
 
-    /* --- HERO --------------------------------------------------------- */
+    /* --- HERO ----------------------------------------------------------- */
     .hero {
       position: relative; display: grid; align-items: end;
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
@@ -177,7 +234,7 @@
       /* keep --edge here: a `padding: x 0 y` shorthand would override
          .wrap's side padding and push the hero flush to the viewport
          edge on anything narrower than the 1240px max-width. */
-      padding: clamp(56px, 9vw, 120px) var(--edge) clamp(48px, 7vw, 96px);
+      padding: clamp(48px, 8vw, 104px) var(--edge) clamp(48px, 7vw, 96px);
       overflow: hidden;
     }
     .hero-ghost {
@@ -194,8 +251,7 @@
       text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
     }
     /* The name sets on two lines on purpose: "ELVINTHEDON" on one line
-       forces the type down to fit the column, which wastes the hero.
-       Stacked, it can run near-full width of its column and stay huge. */
+       forces the type down to fit the column, which wastes the hero. */
     h1 {
       font-size: clamp(3rem, 11.5vw, 11rem); font-weight: 800;
       letter-spacing: -0.045em; line-height: 0.8; text-transform: uppercase;
@@ -206,8 +262,10 @@
       font-size: clamp(1.02rem, 1.5vw, 1.28rem); line-height: 1.5;
       color: var(--ink-soft); max-width: 46ch;
     }
+    .hero-photo-frame {
+      position: relative; z-index: 1; padding: 10px; border-radius: 32px;
+    }
     .hero-photo {
-      position: relative; z-index: 1;
       /* height:auto is required — the img's height="" attribute is a
          presentational hint that otherwise makes the box definite and
          causes aspect-ratio to be ignored entirely. */
@@ -215,44 +273,47 @@
       /* the source is square and his face sits high in frame — a default
          centre crop cuts it off once the box gets wide (e.g. mobile). */
       object-position: 50% 26%;
+      border-radius: 22px;
     }
     .tags { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
     .tags span {
       font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--ink-soft); border: 1px solid var(--line);
-      border-radius: 999px; padding: 7px 15px;
+      color: var(--ink-soft); padding: 9px 17px; border-radius: 999px;
+      background: var(--glass-tint);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-edge);
     }
 
-    /* --- LISTEN ------------------------------------------------------- */
-    .track { margin-bottom: 22px; }
-    .track-label {
-      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--ink-soft); margin-bottom: 10px;
-    }
-    .player { border: 0; width: 100%; }
+    /* --- LISTEN ---------------------------------------------------------- */
     .track-grid {
-      display: grid; gap: 22px;
+      display: grid; gap: 20px;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     }
+    .track { padding: 20px; }
+    .track-label {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-soft); margin-bottom: 14px;
+    }
+    .player { border: 0; width: 100%; border-radius: 14px; }
 
-    /* --- BODY COPY ---------------------------------------------------- */
+    /* --- BODY ------------------------------------------------------------ */
     .body-copy {
       font-size: 1.06rem; line-height: 1.65; max-width: var(--measure);
       margin-bottom: 18px; color: var(--ink);
     }
     .body-copy:last-child { margin-bottom: 0; }
     .two-col {
-      display: grid; gap: clamp(24px, 4vw, 60px);
+      display: grid; gap: clamp(20px, 3vw, 32px);
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
+    .pane { padding: clamp(26px, 3vw, 40px); }
 
-    /* --- NUMBERS ------------------------------------------------------ */
+    /* --- NUMBERS --------------------------------------------------------- */
     .stat-grid {
-      display: grid; gap: 2px; background: var(--line);
-      border: 1px solid var(--line); margin-top: 8px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
     }
-    .stat { background: var(--ground); padding: 30px 26px 28px; }
+    .stat { padding: 30px 26px 28px; }
     .stat-platform {
       font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
@@ -263,32 +324,33 @@
       font-variation-settings: 'opsz' 72; margin-bottom: 8px;
     }
     .stat-label {
-      display: block; font-size: 0.84rem; line-height: 1.4;
-      color: var(--ink-soft);
+      display: block; font-size: 0.84rem; line-height: 1.4; color: var(--ink-soft);
     }
 
-    /* --- PHOTO BAND — full bleed -------------------------------------- */
-    .band { background: var(--panel); margin-top: var(--stanza); }
-    .band-inner { max-width: 1240px; margin: 0 auto;
-      padding: clamp(56px, 8vw, 96px) var(--edge); }
+    /* --- PHOTOS ---------------------------------------------------------- */
     .photo-grid {
       display: grid; gap: 18px; margin-top: 8px;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
-    figure img { width: 100%; height: 100%; object-fit: cover; }
-    figcaption { margin-top: 12px; }
+    figure { padding: 10px; }
+    figure img { width: 100%; height: auto; object-fit: cover; border-radius: 18px; }
+    figcaption { padding: 16px 12px 8px; }
     .dl {
       font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
-      text-transform: uppercase; white-space: nowrap;
+      text-transform: uppercase; white-space: nowrap; text-decoration: none;
+      display: inline-block; padding: 12px 20px; border-radius: 999px;
+      background: var(--glass-tint); border: 1px solid var(--glass-edge);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      color: var(--accent);
     }
+    .dl:hover { background: rgba(122,46,46,0.10); color: var(--ink); }
 
-    /* --- RELEASES ----------------------------------------------------- */
-    .release-list { list-style: none; }
+    /* --- RELEASES -------------------------------------------------------- */
+    .release-list { list-style: none; display: grid; gap: 16px; }
     .release-list li {
       display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px;
-      padding: 26px 0; border-bottom: 1px solid var(--line);
+      padding: 30px 28px;
     }
-    .release-list li:first-child { border-top: 1px solid var(--line); }
     .rel-year { font-size: 1rem; color: var(--ink-soft); min-width: 3.6em; }
     .rel-title {
       font-size: clamp(1.7rem, 3.4vw, 2.6rem); font-weight: 800;
@@ -299,49 +361,59 @@
       color: var(--ink-soft);
     }
     .rel-note {
-      flex-basis: 100%; margin-top: 14px;
+      flex-basis: 100%; margin-top: 16px;
       display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
     }
     .rel-tag {
-      background: var(--accent-deep); color: var(--ink);
+      background: var(--accent-deep); color: #FFFFFF;
       font-size: 0.74rem; font-weight: 800; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 8px 14px;
+      text-transform: uppercase; padding: 9px 15px; border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.12);
     }
     .rel-date { font-size: 1.05rem; color: var(--ink-soft); }
-    .rel-cta { font-size: 0.88rem; font-weight: 500; }
 
-    /* --- CONTACT ------------------------------------------------------ */
+    /* --- CONTACT --------------------------------------------------------- */
+    .contact-pane { padding: clamp(30px, 4vw, 52px); }
     .contact-email {
       display: inline-block; font-size: clamp(1.4rem, 4.2vw, 2.8rem);
       font-weight: 800; letter-spacing: -0.03em;
       font-variation-settings: 'opsz' 72; margin-bottom: 16px;
-      word-break: break-word;
+      word-break: break-word; text-decoration: none;
     }
+    .contact-email:hover { text-decoration: underline; }
     .contact-name { display: block; color: var(--ink-soft); font-size: 0.98rem; }
-    .onesheet { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 26px; }
-    .socials { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px 22px;
-      font-size: 0.9rem; }
+    .onesheet { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .socials { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .socials a {
+      font-size: 0.86rem; text-decoration: none; padding: 10px 18px;
+      border-radius: 999px; background: var(--glass-tint);
+      border: 1px solid var(--glass-edge); color: var(--ink-soft);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    }
+    .socials a:hover { color: var(--ink); background: rgba(122,46,46,0.10); }
 
-    /* --- FOOTER ------------------------------------------------------- */
     footer {
-      margin-top: var(--stanza); border-top: 1px solid var(--line);
-      padding: 30px var(--edge) 44px; max-width: 1240px;
-      margin-left: auto; margin-right: auto;
+      margin-top: var(--stanza); padding: 34px var(--edge) 46px;
+      max-width: 1240px; margin-left: auto; margin-right: auto;
       display: flex; justify-content: space-between; gap: 16px;
       flex-wrap: wrap; font-size: 0.8rem; color: var(--ink-soft);
+      border-top: 1px solid rgba(15,15,20,0.12);
     }
 
-    /* --- RESPONSIVE --------------------------------------------------- */
     @media (max-width: 860px) {
-      :root { --stanza: 84px; }
+      :root { --stanza: 88px; --r: 22px; }
       .hero { grid-template-columns: 1fr; align-items: start; }
       .hero-photo { aspect-ratio: 3 / 2; }
     }
 
-    /* --- PRINT — the one-sheet PDF is the better handout -------------- */
+    /* Glass is a screen effect — flatten it for print. The one-sheet and
+       the deck PDF are the real handouts. */
     @media print {
-      .topbar, .band, iframe, .side-logo, .ghost, .hero-ghost { display: none; }
+      .topbar-shell, iframe, .side-logo, .ghost, .hero-ghost, .ambient { display: none; }
       body { background: #fff; color: #000; }
+      .glass { background: none; border: 1px solid #ccc; box-shadow: none;
+               -webkit-backdrop-filter: none; backdrop-filter: none; }
+      .sheen { -webkit-text-fill-color: #000; color: #000; background: none; }
       .sec { padding-top: 28px; }
       a { color: #000; }
     }
@@ -350,21 +422,24 @@
 
 <body>
 
-<!-- Hekta's mark rides along the left gutter. Its black ground is the
-     same near-black as the page, so on screen it reads as the bare
-     wordmark rather than a pasted-on tile. -->
+<!-- The ambient field. Everything glassy on this page is refracting THIS. -->
+<div class="ambient" aria-hidden="true"></div>
+
+<!-- Hekta's mark rides along the left gutter. -->
 <img src="assets/hekta-logo.png" alt="Hekta Music Group" class="side-logo" width="150" height="150" />
 
-<!-- Contact visible at the very top: an editor should never scroll to
-     find out who to reply to. -->
-<div class="topbar">
-  <span class="wordmark">ElvinTheDon &mdash; press kit</span>
-  <a href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a>
+<!-- Contact stays reachable at any scroll depth: an editor should never
+     hunt for who to reply to. -->
+<div class="topbar-shell">
+  <div class="topbar glass">
+    <span class="wordmark">ElvinTheDon &mdash; press kit</span>
+    <a href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a>
+  </div>
 </div>
 
 <main>
 
-  <header class="hero wrap">
+  <header class="hero">
     <div class="hero-ghost" aria-hidden="true">
       <span>ElvinTheDon</span>
       <span>ElvinTheDon</span>
@@ -372,11 +447,13 @@
     </div>
     <div class="hero-copy">
       <p class="eyebrow">Electronic press kit &mdash; HipHop &mdash; Kumasi/Ghana</p>
-      <h1><span>Elvin</span><span>TheDon</span></h1>
+      <h1 class="sheen"><span>Elvin</span><span>TheDon</span></h1>
       <p class="oneliner">With a relaxed flow leaning towards Larry June and life lived lyric style that stands with Dave. Elvin brings a unique vibe, and voice, to the Ghana hiphop scene.</p>
       <p class="tags"><span>Asakaa</span><span>Ghanaian Hip Hop</span><span>Trap</span></p>
     </div>
-    <img class="hero-photo" src="assets/photos/elvinthedon1.jpg" alt="ElvinTheDon" width="1800" height="1800" />
+    <div class="hero-photo-frame glass">
+      <img class="hero-photo" src="assets/photos/elvinthedon1.jpg" alt="ElvinTheDon" width="1800" height="1800" />
+    </div>
   </header>
 
 
@@ -384,17 +461,17 @@
     <div class="ghost" aria-hidden="true">Listen</div>
     <div class="wrap">
       <p class="marker">Listen</p>
-      <h2 class="sec-title">Listen</h2>
+      <h2 class="sec-title sheen">Listen</h2>
       <div class="track-grid">
-        <div class="track">
+        <div class="track glass">
           <p class="track-label">Crowd Favorite &mdash; &#x27;Beautiful Anthem&#x27;, 2026</p>
           <iframe title="Spotify player — Beautiful Anthem" class="player" src="https://open.spotify.com/embed/track/4tAAF5qUAQOIMo1Q1utL6f" height="152" loading="lazy" allow="encrypted-media; fullscreen"></iframe>
         </div>
-        <div class="track">
+        <div class="track glass">
           <p class="track-label">Team Favorite &mdash; &#x27;I Feel Like&#x27;, 2026</p>
           <iframe title="Spotify player — I Feel Like" class="player" src="https://open.spotify.com/embed/track/4ZVGhlFIgojgmrCTYe8mMM" height="152" loading="lazy" allow="encrypted-media; fullscreen"></iframe>
         </div>
-        <div class="track">
+        <div class="track glass">
           <p class="track-label">Newest Single &mdash; &#x27;Bumpa&#x27;, 2026</p>
           <iframe title="Spotify player — Bumpa" class="player" src="https://open.spotify.com/embed/track/5zPfV77HUheTAsIYyxgVUb" height="152" loading="lazy" allow="encrypted-media; fullscreen"></iframe>
         </div>
@@ -407,26 +484,26 @@
     <div class="ghost" aria-hidden="true">Numbers</div>
     <div class="wrap">
       <p class="marker">In numbers</p>
-      <h2 class="sec-title">The numbers</h2>
+      <h2 class="sec-title sheen">The numbers</h2>
       <div class="stat-grid">
-        <div class="stat">
+        <div class="stat glass">
           <p class="stat-platform">Spotify</p>
-          <span class="stat-value">1.1M</span>
+          <span class="stat-value sheen">1.1M</span>
           <span class="stat-label">Streams in the last year</span>
         </div>
-        <div class="stat">
+        <div class="stat glass">
           <p class="stat-platform">TikTok</p>
-          <span class="stat-value">3.1M</span>
+          <span class="stat-value sheen">3.1M</span>
           <span class="stat-label">Likes across the platform</span>
         </div>
-        <div class="stat">
+        <div class="stat glass">
           <p class="stat-platform">Spotify</p>
-          <span class="stat-value">39,088</span>
+          <span class="stat-value sheen">39,088</span>
           <span class="stat-label">Active monthly listeners</span>
         </div>
-        <div class="stat">
+        <div class="stat glass">
           <p class="stat-platform">All platforms</p>
-          <span class="stat-value">137,555</span>
+          <span class="stat-value sheen">137,555</span>
           <span class="stat-label">Combined audience</span>
         </div>
       </div>
@@ -438,13 +515,13 @@
     <div class="ghost" aria-hidden="true">Bio</div>
     <div class="wrap">
       <p class="marker">Bio</p>
-      <h2 class="sec-title">Bio</h2>
+      <h2 class="sec-title sheen">Bio</h2>
       <div class="two-col">
-        <div>
+        <div class="pane glass">
           <p class="body-copy">elvinthedon is a rising global artist shaping the future of hip-hop with a sound that moves beyond borders. Blending powerful lyricism, melodic energy, and international influences, his music reflects ambition, vision, and the mindset of an artist built for the world stage.</p>
           <p class="body-copy">With the release of THE RED GENESIS, elvinthedon steps into a defining era &mdash; a bold introduction to his artistry, driven by passion, discipline, and a relentless pursuit of greatness. His sound bridges cultures, fusing modern hip-hop with global rhythms to create music that resonates worldwide.</p>
         </div>
-        <div>
+        <div class="pane glass">
           <p class="body-copy">Independent and forward-thinking, elvinthedon represents the new generation of artists turning vision into legacy &mdash; one record, one stage, and one city at a time.</p>
         </div>
       </div>
@@ -456,21 +533,26 @@
     <div class="ghost" aria-hidden="true">Momentum</div>
     <div class="wrap">
       <p class="marker">Momentum</p>
-      <h2 class="sec-title">Momentum</h2>
+      <h2 class="sec-title sheen">Momentum</h2>
       <div class="two-col">
-        <p class="body-copy">Since breaking out in early 2026, Elvinthedon has become one of Ghana&#x27;s fastest-rising new voices &mdash; streams up more than 30x over the past year, monthly listeners multiplying 15-fold, all built on pure organic momentum with zero major playlist or label push behind it (until now).</p>
-        <p class="body-copy">That momentum now comes with real infrastructure behind it: Hekta Music Group has partnered with RainLabs &mdash; the Accra- and London-based label services company behind acts like Joey B and Cina Soul, with distribution reaching 128+ streaming platforms worldwide &mdash; to take Elvinthedon&#x27;s music to a much bigger stage. The momentum isn&#x27;t just holding, it&#x27;s compounding &mdash; the infrastructure is in place to match it.</p>
+        <div class="pane glass">
+          <p class="body-copy">Since breaking out in early 2026, Elvinthedon has become one of Ghana&#x27;s fastest-rising new voices &mdash; streams up more than 30x over the past year, monthly listeners multiplying 15-fold, all built on pure organic momentum with zero major playlist or label push behind it (until now).</p>
+        </div>
+        <div class="pane glass">
+          <p class="body-copy">That momentum now comes with real infrastructure behind it: Hekta Music Group has partnered with RainLabs &mdash; the Accra- and London-based label services company behind acts like Joey B and Cina Soul, with distribution reaching 128+ streaming platforms worldwide &mdash; to take Elvinthedon&#x27;s music to a much bigger stage. The momentum isn&#x27;t just holding, it&#x27;s compounding &mdash; the infrastructure is in place to match it.</p>
+        </div>
       </div>
     </div>
   </section>
 
 
-  <section class="sec band" id="photos">
-    <div class="band-inner">
+  <section class="sec" id="photos">
+    <div class="ghost" aria-hidden="true">Photos</div>
+    <div class="wrap">
       <p class="marker">Press photos</p>
-      <h2 class="sec-title">Press photos</h2>
+      <h2 class="sec-title sheen">Press photos</h2>
       <div class="photo-grid">
-        <figure>
+        <figure class="glass">
           <img src="assets/photos/elvinthedon1.jpg" alt="ElvinTheDon" loading="lazy" width="1800" height="1800" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon1.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
@@ -481,26 +563,26 @@
 
   <!-- ============================================================
        SECTION: RELEASES
-       ADDING A RELEASE: copy one <li> row, edit year/title/type/
-       note. Newest first. Keep notes to one short clause. When the
-       upcoming release ships, drop the .rel-note block from it and
-       add the new upcoming row above. An out-of-date "coming soon"
-       is worse than none — it signals the project is inactive.
+       ADDING A RELEASE: copy one <li>, edit year/title/type/note.
+       Newest first. When the upcoming release ships, drop its
+       .rel-note block and add the new upcoming row above. An
+       out-of-date "coming soon" is worse than none — it signals
+       the project is inactive.
        ============================================================ -->
   <section class="sec" id="releases">
     <div class="ghost" aria-hidden="true">Releases</div>
     <div class="wrap">
       <p class="marker">Releases</p>
-      <h2 class="sec-title">Releases</h2>
+      <h2 class="sec-title sheen">Releases</h2>
       <ul class="release-list">
-        <li>
+        <li class="glass">
           <span class="rel-year">2026</span>
-          <span class="rel-title">&#x27;no love&#x27;</span>
+          <span class="rel-title sheen">&#x27;no love&#x27;</span>
           <span class="rel-type">single</span>
           <span class="rel-note">
             <span class="rel-tag">Upcoming release</span>
             <span class="rel-date">September 25th, 2026</span>
-            <a class="rel-cta" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request">Request early access &rarr;</a>
+            <a class="dl" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request">Request early access &rarr;</a>
           </span>
         </li>
       </ul>
@@ -512,20 +594,23 @@
     <div class="ghost" aria-hidden="true">Contact</div>
     <div class="wrap">
       <p class="marker">Press contact</p>
-      <a class="contact-email" href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a>
-      <span class="contact-name">Hekta Music Group &mdash; Indie Label/Management</span>
-      <p class="onesheet">
-        <a class="dl" href="assets/elvinthedon-epk-deck.pdf" download>Download full EPK deck (PDF) &darr;</a>
-        <a class="dl" href="assets/elvinthedon-onesheet.pdf" download>Download one-sheet (PDF) &darr;</a>
-      </p>
-      <p class="socials">
-        <a href="https://www.instagram.com/elvinthedon/" rel="noopener">Instagram</a>
-        <a href="https://www.tiktok.com/@elvinthedon" rel="noopener">TikTok</a>
-        <a href="https://www.youtube.com/channel/UCibHwc9ujnrHsoKghjxaT1A" rel="noopener">YouTube</a>
-        <a href="https://twitter.com/elvinthedon1" rel="noopener">X</a>
-        <a href="https://open.spotify.com/artist/6zHxrKFJLiNTEhCZbiQlyZ" rel="noopener">Spotify</a>
-        <a href="https://music.apple.com/ng/artist/elvinthedon/1542498329" rel="noopener">Apple Music</a>
-      </p>
+      <h2 class="sec-title sheen">Get in touch</h2>
+      <div class="contact-pane glass">
+        <a class="contact-email sheen" href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a>
+        <span class="contact-name">Hekta Music Group &mdash; Indie Label/Management</span>
+        <p class="onesheet">
+          <a class="dl" href="assets/elvinthedon-epk-deck.pdf" download>Full EPK deck (PDF) &darr;</a>
+          <a class="dl" href="assets/elvinthedon-onesheet.pdf" download>One-sheet (PDF) &darr;</a>
+        </p>
+        <p class="socials">
+          <a href="https://www.instagram.com/elvinthedon/" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@elvinthedon" rel="noopener">TikTok</a>
+          <a href="https://www.youtube.com/channel/UCibHwc9ujnrHsoKghjxaT1A" rel="noopener">YouTube</a>
+          <a href="https://twitter.com/elvinthedon1" rel="noopener">X</a>
+          <a href="https://open.spotify.com/artist/6zHxrKFJLiNTEhCZbiQlyZ" rel="noopener">Spotify</a>
+          <a href="https://music.apple.com/ng/artist/elvinthedon/1542498329" rel="noopener">Apple Music</a>
+        </p>
+      </div>
     </div>
   </section>
 
