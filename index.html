@@ -368,44 +368,51 @@
     }
     .dl:hover { background: rgba(122,46,46,0.10); color: var(--ink); }
 
-    /* --- PRIMARY CTA ---------------------------------------------------
-       The single action a journalist should take. Everything else on the
-       page is a ghost pill, so this is the only SOLID control — that
-       contrast in weight is what makes it read as the primary button.
-       White on oxblood measures 9.0:1. Keep exactly one of these. */
-    .cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.94rem; font-weight: 800; letter-spacing: 0.09em;
-      text-transform: uppercase; text-decoration: none; white-space: nowrap;
-      padding: 17px 30px; border-radius: 999px;
-      background: var(--accent); color: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.16);
-      box-shadow: 0 10px 26px rgba(122, 46, 46, 0.34),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.22);
-      transition: background 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+    /* --- RECORD CTA ----------------------------------------------------
+       The record IS the control — there is no pill and no visible label,
+       so it carries aria-label + title. Without those a screen reader
+       announces a bare link and a sighted reader gets no hover hint;
+       an unlabelled icon is the one thing that must not ship silent.
+
+       It is absolutely positioned to the right of the release row, so
+       the row reserves padding-right for it. Note the selector below
+       beats `.glass > *`, which sets position:relative on every direct
+       child of a panel and would otherwise cancel the absolute. */
+    .release-list li > .record-cta {
+      position: absolute; right: clamp(24px, 4vw, 52px); top: 50%;
+      margin-top: -66px;                 /* half the disc; keeps transform free */
+      width: 132px; height: 132px; display: block; border-radius: 50%;
+      text-decoration: none; z-index: 2;
+      filter: drop-shadow(0 12px 26px rgba(122, 46, 46, 0.34));
+      transition: filter 160ms ease;
     }
-    .cta:hover {
-      background: var(--accent-deep); color: #FFFFFF; transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(122, 46, 46, 0.44),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    .release-list li > .record-cta:hover {
+      filter: drop-shadow(0 16px 34px rgba(122, 46, 46, 0.48));
     }
-    .cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-    /* The record turns continuously — a stopped record reads as broken.
-       The label wedge and sheen are deliberately ASYMMETRIC: a purely
+    .release-list li > .record-cta:focus-visible {
+      outline: 3px solid var(--ink); outline-offset: 6px; border-radius: 50%;
+    }
+    /* The disc turns continuously — a stopped record reads as broken. The
+       label wedge and sheen are deliberately ASYMMETRIC: a purely
        concentric disc looks identical at every angle, so the rotation
-       would be invisible. Killed by the reduced-motion block above. */
-    .cta .record {
-      width: 32px; height: 32px; flex-shrink: 0; display: block;
-      animation: spin 3.4s linear infinite;
+       would be invisible. Killed by the reduced-motion block above.
+       The spin lives on the SVG, not the link, so it cannot fight the
+       link's own positioning. */
+    .record-cta .record {
+      width: 100%; height: 100%; display: block;
+      animation: spin 4s linear infinite;
     }
-    .cta:hover .record { animation-duration: 1.4s; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .record-cta:hover .record { animation-duration: 1.5s; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     /* --- RELEASES -------------------------------------------------------- */
     .release-list { list-style: none; display: grid; gap: 16px; }
     .release-list li {
+      position: relative;                /* anchor for the record CTA */
       display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px;
       padding: 30px 28px;
+      padding-right: clamp(190px, 20vw, 232px);   /* clearance for the disc */
+      min-height: 190px;
     }
     .rel-year { font-size: 1rem; color: var(--ink-soft); min-width: 3.6em; }
     .rel-title {
@@ -458,6 +465,11 @@
 
     @media (max-width: 860px) {
       :root { --stanza: 88px; --r: 22px; }
+      /* no gutter to float the disc into — it rejoins the flow */
+      .release-list li { padding-right: 28px; min-height: 0; }
+      .release-list li > .record-cta {
+        position: static; margin: 22px 0 0; width: 104px; height: 104px;
+      }
       .hero { grid-template-columns: 1fr; align-items: start; }
       .hero-photo { aspect-ratio: 3 / 2; }
     }
@@ -636,8 +648,11 @@
           <span class="rel-note">
             <span class="rel-tag">Upcoming release</span>
             <span class="rel-date">September 25th, 2026</span>
-            <a class="cta" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request"><svg class="record" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="49" fill="#141416"/><path d="M50 1a49 49 0 0 1 34.6 83.6L50 50Z" fill="#ffffff" opacity=".07"/><circle cx="50" cy="50" r="40" fill="none" stroke="#ffffff" stroke-opacity=".30" stroke-width="2"/><circle cx="50" cy="50" r="32" fill="none" stroke="#ffffff" stroke-opacity=".23" stroke-width="2"/><circle cx="50" cy="50" r="24" fill="none" stroke="#ffffff" stroke-opacity=".17" stroke-width="2"/><circle cx="50" cy="50" r="16" fill="#EFEBE4"/><path d="M50 34a16 16 0 0 1 0 32Z" fill="#C4B6A8"/><circle cx="50" cy="50" r="3.4" fill="#7A2E2E"/></svg>Request early access &rarr;</a>
           </span>
+          <a class="record-cta"
+             href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request"
+             aria-label="Request early access to &#x27;no love&#x27;"
+             title="Request early access"><svg class="record" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="49" fill="#7A2E2E"/><path d="M50 1a49 49 0 0 1 34.6 83.6L50 50Z" fill="#ffffff" opacity=".10"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff" stroke-opacity=".26" stroke-width="1.8"/><circle cx="50" cy="50" r="35" fill="none" stroke="#ffffff" stroke-opacity=".20" stroke-width="1.8"/><circle cx="50" cy="50" r="28" fill="none" stroke="#ffffff" stroke-opacity=".15" stroke-width="1.8"/><circle cx="50" cy="50" r="21" fill="none" stroke="#ffffff" stroke-opacity=".11" stroke-width="1.8"/><circle cx="50" cy="50" r="15" fill="#EFEBE4"/><path d="M50 35a15 15 0 0 1 0 30Z" fill="#C9BCAE"/><circle cx="50" cy="50" r="3.2" fill="#5E2020"/></svg></a>
         </li>
       </ul>
     </div>
