@@ -359,15 +359,16 @@
     }
 
     /* --- PHOTOS ---------------------------------------------------------- */
-    .photo-grid {
-      display: grid; gap: 18px; margin-top: 8px;
-      /* capped track: with a single photo a 1fr track stretches it to the
-         full 1240px column, which swamps the page. Extra photos still
-         fill across as they are added. */
-      grid-template-columns: repeat(auto-fit, minmax(280px, 460px));
-    }
-    figure { padding: 10px; }
-    figure img { width: 100%; height: auto; object-fit: cover; border-radius: 18px; }
+    /* Masonry columns, not a grid. The shoot mixes 4:3 landscape with 3:4
+       portrait; a fixed-ratio grid tile would have to crop one or the
+       other, and cropping someone's press photography to fit a layout is
+       the wrong trade. Columns let every frame keep its own proportions. */
+    .photo-grid { columns: 3; column-gap: 18px; margin-top: 8px; }
+    figure { padding: 10px; break-inside: avoid; margin: 0 0 18px;
+      display: inline-block; width: 100%; }
+    figure img { width: 100%; height: auto; border-radius: 18px; }
+    @media (max-width: 1100px) { .photo-grid { columns: 2; } }
+    @media (max-width: 700px)  { .photo-grid { columns: 1; } }
     figcaption { padding: 16px 12px 8px; }
     .dl {
       font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
@@ -431,11 +432,26 @@
     .release-list { list-style: none; display: grid; gap: 16px; }
     .release-list li {
       position: relative;                /* anchor for the record CTA */
-      display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px;
-      padding: 30px 28px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 24px;
+      padding: 26px 28px;
       padding-right: clamp(206px, 21vw, 244px);   /* clearance for disc + caption */
       min-height: 190px;
     }
+    /* cover art doubles as its download — editors expect to grab it */
+    .rel-art-link { display: block; flex-shrink: 0; line-height: 0;
+      border-radius: 16px; }
+    .rel-art-link:focus-visible { outline: 3px solid var(--accent);
+      outline-offset: 4px; }
+    .rel-art {
+      width: clamp(92px, 11vw, 136px); height: auto; aspect-ratio: 1 / 1;
+      object-fit: cover; border-radius: 16px;
+      box-shadow: 0 10px 26px rgba(16, 16, 24, 0.20);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .rel-art-link:hover .rel-art { transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(16, 16, 24, 0.28); }
+    .rel-meta { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .rel-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px; }
     .rel-year { font-size: 1rem; color: var(--ink-soft); min-width: 3.6em; }
     .rel-title {
       font-size: clamp(1.7rem, 3.4vw, 2.6rem); font-weight: 800;
@@ -446,7 +462,6 @@
       color: var(--ink-soft);
     }
     .rel-note {
-      flex-basis: 100%; margin-top: 16px;
       display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
     }
     .rel-tag {
@@ -634,6 +649,46 @@
       <h2 class="sec-title sheen">Press photos</h2>
       <div class="photo-grid">
         <figure class="glass">
+          <img src="assets/photos/elvinthedon-studio-close.jpg" alt="ElvinTheDon, studio portrait" loading="lazy" width="1066" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-close.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-bw-portrait.jpg" alt="ElvinTheDon, black and white portrait" loading="lazy" width="1600" height="1200" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-bw-portrait.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-studio-seated.jpg" alt="ElvinTheDon seated, studio" loading="lazy" width="1066" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-seated.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-bike-full.jpg" alt="ElvinTheDon on a motorbike" loading="lazy" width="1600" height="1200" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-bike-full.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-studio-portrait.jpg" alt="ElvinTheDon, studio portrait" loading="lazy" width="1066" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-portrait.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-street-chain.jpg" alt="ElvinTheDon on the street" loading="lazy" width="1200" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-street-chain.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-studio-standing.jpg" alt="ElvinTheDon standing, studio" loading="lazy" width="1280" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-standing.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-bike-lean.jpg" alt="ElvinTheDon leaning on a motorbike" loading="lazy" width="1600" height="1200" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-bike-lean.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-street-fence.jpg" alt="ElvinTheDon, street portrait" loading="lazy" width="1200" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-street-fence.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
+          <img src="assets/photos/elvinthedon-studio-profile.jpg" alt="ElvinTheDon in profile, studio" loading="lazy" width="1066" height="1600" />
+          <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-profile.jpg" download>Download full-res &darr;</a></figcaption>
+        </figure>
+        <figure class="glass">
           <img src="assets/photos/elvinthedon1.jpg" alt="ElvinTheDon" loading="lazy" width="1800" height="1800" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon1.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
@@ -657,13 +712,23 @@
       <h2 class="sec-title sheen">Releases</h2>
       <ul class="release-list">
         <li class="glass">
-          <span class="rel-year">2026</span>
-          <span class="rel-title sheen">&#x27;no love&#x27;</span>
-          <span class="rel-type">single</span>
-          <span class="rel-note">
-            <span class="rel-tag">Upcoming release</span>
-            <span class="rel-date">September 25th, 2026</span>
-          </span>
+          <a class="rel-art-link" href="assets/photos/full/no-love-artwork.jpg" download
+             title="Download the &#x27;no love&#x27; cover artwork">
+            <img class="rel-art" src="assets/photos/no-love-artwork.jpg"
+                 alt="&#x27;no love&#x27; single artwork" loading="lazy"
+                 width="1200" height="1200" />
+          </a>
+          <div class="rel-meta">
+            <div class="rel-head">
+              <span class="rel-year">2026</span>
+              <span class="rel-title sheen">&#x27;no love&#x27;</span>
+              <span class="rel-type">single</span>
+            </div>
+            <div class="rel-note">
+              <span class="rel-tag">Upcoming release</span>
+              <span class="rel-date">September 25th, 2026</span>
+            </div>
+          </div>
           <a class="record-cta"
              href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request"
              aria-label="Click here to request early access to &#x27;no love&#x27;"><svg class="record" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="49" fill="#7A2E2E"/><path d="M50 1a49 49 0 0 1 34.6 83.6L50 50Z" fill="#ffffff" opacity=".10"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff" stroke-opacity=".26" stroke-width="1.8"/><circle cx="50" cy="50" r="35" fill="none" stroke="#ffffff" stroke-opacity=".20" stroke-width="1.8"/><circle cx="50" cy="50" r="28" fill="none" stroke="#ffffff" stroke-opacity=".15" stroke-width="1.8"/><circle cx="50" cy="50" r="21" fill="none" stroke="#ffffff" stroke-opacity=".11" stroke-width="1.8"/><circle cx="50" cy="50" r="15" fill="#EFEBE4"/><path d="M50 35a15 15 0 0 1 0 30Z" fill="#C9BCAE"/><circle cx="50" cy="50" r="3.2" fill="#5E2020"/></svg><span class="record-label">Click here to request early access</span></a>

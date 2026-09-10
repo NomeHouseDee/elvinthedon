@@ -1,0 +1,16 @@
+# Raw camera masters. The web-ready and full-res press versions live in
+# assets/photos/ and assets/photos/full/ and are what the site serves.
+# These originals total ~74MB; git history is permanent, so committing
+# them would bloat this Pages repo forever. They stay on local disk.
+assets/ADR*.JPG
+assets/ADR*.jpg
+assets/IMG_*.JPG
+assets/elvin-no love artwork.jpg
+
+# Files the Cowork app drops into the folder
+Claude outputs/
+
+# Scratch
+_contact.jpg
+_site.tar
+.DS_Store
