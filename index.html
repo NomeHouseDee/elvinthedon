@@ -259,7 +259,7 @@
     /* --- HERO ----------------------------------------------------------- */
     .hero {
       position: relative; display: grid; align-items: end;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
       gap: clamp(24px, 4vw, 56px);
       /* keep --edge here: a `padding: x 0 y` shorthand would override
          .wrap's side padding and push the hero flush to the viewport
@@ -275,18 +275,18 @@
       color: transparent; -webkit-text-stroke: 1.5px var(--ghost);
       white-space: nowrap; pointer-events: none; user-select: none; z-index: 0;
     }
-    .hero-copy { position: relative; z-index: 1; }
-    /* The name sets on two lines on purpose: "elvinthedon" on one line
-       forces the type down to fit the column, which wastes the hero. */
+    .hero-copy { position: relative; z-index: 1; container-type: inline-size; }
+    /* The name sets as ONE unbroken word. 'elvinthedon' measures 5.12x
+       its own font-size, so 19.2cqw of the .hero-copy column always fits
+       it on a single line with a little air to spare, at every width. */
     h1 {
-      font-size: clamp(3rem, 11.5vw, 11rem); font-weight: 800;
+      font-size: min(11rem, 19.2cqw); font-weight: 800; white-space: nowrap;
       /* no uppercase: the name is styled lowercase as a matter of brand,
          and a text-transform here would silently override that. Section
          headings keep their uppercase — they are labels, not the name. */
       letter-spacing: -0.045em; line-height: 0.8; text-transform: none;
       font-variation-settings: 'opsz' 96; margin-bottom: 26px;
     }
-    h1 span { display: block; }
     .hero-photo-frame {
       position: relative; z-index: 1; padding: 10px; border-radius: 32px;
     }
@@ -557,7 +557,7 @@
       <span>elvinthedon</span>
     </div>
     <div class="hero-copy">
-      <h1 class="sheen"><span>elvin</span><span>thedon</span></h1>
+      <h1 class="sheen">elvinthedon</h1>
       <p class="tags"><span>Asakaa</span><span>Ghanaian Hip Hop</span><span>Trap</span></p>
     </div>
     <div class="hero-photo-frame glass">
