@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- =====================================================================
-     ElvinTheDon — ELECTRONIC PRESS KIT
+     elvinthedon — ELECTRONIC PRESS KIT
      Lives at: https://nomehousestudios.org/elvinthedon/  (GitHub Pages)
 
      DESIGN SYSTEM — "liquid glass", light build.
@@ -42,8 +42,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ElvinTheDon — Press Kit | HipHop, Kumasi/Ghana</title>
-  <meta name="description" content="Electronic press kit for ElvinTheDon — HipHop from Kumasi/Ghana. Music, bio, press photos, and contact for press and media." />
+  <title>elvinthedon — Press Kit | HipHop, Kumasi/Ghana</title>
+  <meta name="description" content="Electronic press kit for elvinthedon — HipHop from Kumasi/Ghana. Music, bio, press photos, and contact for press and media." />
 
   <meta name="robots" content="noindex" />
 
@@ -51,17 +51,17 @@
        inbox, Slack, or a DM. Absolute URLs are required. If the page
        moves domains, update og:url and og:image. -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="ElvinTheDon — Press Kit" />
-  <meta property="og:title" content="ElvinTheDon — Press Kit" />
+  <meta property="og:site_name" content="elvinthedon — Press Kit" />
+  <meta property="og:title" content="elvinthedon — Press Kit" />
   <meta property="og:description" content="HipHop from Kumasi, Ghana. 1.1M Spotify streams, 137K combined audience, new single 'no love' out September 25th 2026. Music, bio, press photos and contact." />
   <meta property="og:url" content="https://nomehousestudios.org/elvinthedon/" />
   <meta property="og:image" content="https://nomehousestudios.org/elvinthedon/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="ElvinTheDon" />
+  <meta property="og:image:alt" content="elvinthedon" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="ElvinTheDon — Press Kit" />
+  <meta name="twitter:title" content="elvinthedon — Press Kit" />
   <meta name="twitter:description" content="HipHop from Kumasi, Ghana. 1.1M Spotify streams, 137K combined audience, new single 'no love' out September 25th 2026." />
   <meta name="twitter:image" content="https://nomehousestudios.org/elvinthedon/assets/og-image.jpg" />
 
@@ -233,6 +233,8 @@
       border-radius: 999px;
     }
     .topbar .wordmark { font-weight: 500; color: var(--ink-soft); }
+    /* the name opts out of the bar's uppercase styling */
+    .nm { text-transform: none; }
     .topbar a { font-weight: 500; letter-spacing: 0.04em; text-transform: none;
       font-size: 0.86rem; text-decoration: none; }
     .topbar a:hover { text-decoration: underline; }
@@ -269,16 +271,19 @@
       position: absolute; inset: 0; display: flex; flex-direction: column;
       justify-content: center; gap: 0.02em;
       font-size: clamp(5rem, 17vw, 15rem); font-weight: 800;
-      letter-spacing: -0.045em; line-height: 0.8; text-transform: uppercase;
+      letter-spacing: -0.045em; line-height: 0.8; text-transform: none;
       color: transparent; -webkit-text-stroke: 1.5px var(--ghost);
       white-space: nowrap; pointer-events: none; user-select: none; z-index: 0;
     }
     .hero-copy { position: relative; z-index: 1; }
-    /* The name sets on two lines on purpose: "ELVINTHEDON" on one line
+    /* The name sets on two lines on purpose: "elvinthedon" on one line
        forces the type down to fit the column, which wastes the hero. */
     h1 {
       font-size: clamp(3rem, 11.5vw, 11rem); font-weight: 800;
-      letter-spacing: -0.045em; line-height: 0.8; text-transform: uppercase;
+      /* no uppercase: the name is styled lowercase as a matter of brand,
+         and a text-transform here would silently override that. Section
+         headings keep their uppercase — they are labels, not the name. */
+      letter-spacing: -0.045em; line-height: 0.8; text-transform: none;
       font-variation-settings: 'opsz' 96; margin-bottom: 26px;
     }
     h1 span { display: block; }
@@ -538,7 +543,7 @@
      hunt for who to reply to. -->
 <div class="topbar-shell">
   <div class="topbar glass">
-    <span class="wordmark">ElvinTheDon &mdash; press kit</span>
+    <span class="wordmark"><span class="nm">elvinthedon</span> &mdash; press kit</span>
     <a href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a>
   </div>
 </div>
@@ -547,16 +552,16 @@
 
   <header class="hero">
     <div class="hero-ghost" aria-hidden="true">
-      <span>ElvinTheDon</span>
-      <span>ElvinTheDon</span>
-      <span>ElvinTheDon</span>
+      <span>elvinthedon</span>
+      <span>elvinthedon</span>
+      <span>elvinthedon</span>
     </div>
     <div class="hero-copy">
-      <h1 class="sheen"><span>Elvin</span><span>TheDon</span></h1>
+      <h1 class="sheen"><span>elvin</span><span>thedon</span></h1>
       <p class="tags"><span>Asakaa</span><span>Ghanaian Hip Hop</span><span>Trap</span></p>
     </div>
     <div class="hero-photo-frame glass">
-      <img class="hero-photo" src="assets/photos/elvinthedon1.jpg" alt="ElvinTheDon" width="1800" height="1800" />
+      <img class="hero-photo" src="assets/photos/elvinthedon1.jpg" alt="elvinthedon" width="1800" height="1800" />
     </div>
   </header>
 
@@ -631,8 +636,8 @@
       <p class="marker">Momentum</p>
       <h2 class="sec-title sheen">Momentum</h2>
       <div class="pane prose glass">
-        <p class="body-copy">Since breaking out in early 2026, Elvinthedon has become one of Ghana&#x27;s fastest-rising new voices &mdash; streams up more than 30x over the past year, monthly listeners multiplying 15-fold, all built on pure organic momentum with zero major playlist or label push behind it (until now).</p>
-        <p class="body-copy">That momentum now comes with real infrastructure behind it: Hekta Music Group has partnered with RainLabs &mdash; the Accra- and London-based label services company behind acts like Joey B and Cina Soul, with distribution reaching 128+ streaming platforms worldwide &mdash; to take Elvinthedon&#x27;s music to a much bigger stage. The momentum isn&#x27;t just holding, it&#x27;s compounding &mdash; the infrastructure is in place to match it.</p>
+        <p class="body-copy">Since breaking out in early 2026, elvinthedon has become one of Ghana&#x27;s fastest-rising new voices &mdash; streams up more than 30x over the past year, monthly listeners multiplying 15-fold, all built on pure organic momentum with zero major playlist or label push behind it (until now).</p>
+        <p class="body-copy">That momentum now comes with real infrastructure behind it: Hekta Music Group has partnered with RainLabs &mdash; the Accra- and London-based label services company behind acts like Joey B and Cina Soul, with distribution reaching 128+ streaming platforms worldwide &mdash; to take elvinthedon&#x27;s music to a much bigger stage. The momentum isn&#x27;t just holding, it&#x27;s compounding &mdash; the infrastructure is in place to match it.</p>
       </div>
     </div>
   </section>
@@ -645,47 +650,47 @@
       <h2 class="sec-title sheen">Press photos</h2>
       <div class="photo-grid">
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-studio-close.jpg" alt="ElvinTheDon, studio portrait" loading="lazy" width="1066" height="1600" />
+          <img src="assets/photos/elvinthedon-studio-close.jpg" alt="elvinthedon, studio portrait" loading="lazy" width="1066" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-close.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-bw-portrait.jpg" alt="ElvinTheDon, black and white portrait" loading="lazy" width="1600" height="1200" />
+          <img src="assets/photos/elvinthedon-bw-portrait.jpg" alt="elvinthedon, black and white portrait" loading="lazy" width="1600" height="1200" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-bw-portrait.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-studio-seated.jpg" alt="ElvinTheDon seated, studio" loading="lazy" width="1066" height="1600" />
+          <img src="assets/photos/elvinthedon-studio-seated.jpg" alt="elvinthedon seated, studio" loading="lazy" width="1066" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-seated.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-bike-full.jpg" alt="ElvinTheDon on a motorbike" loading="lazy" width="1600" height="1200" />
+          <img src="assets/photos/elvinthedon-bike-full.jpg" alt="elvinthedon on a motorbike" loading="lazy" width="1600" height="1200" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-bike-full.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-studio-portrait.jpg" alt="ElvinTheDon, studio portrait" loading="lazy" width="1066" height="1600" />
+          <img src="assets/photos/elvinthedon-studio-portrait.jpg" alt="elvinthedon, studio portrait" loading="lazy" width="1066" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-portrait.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-street-chain.jpg" alt="ElvinTheDon on the street" loading="lazy" width="1200" height="1600" />
+          <img src="assets/photos/elvinthedon-street-chain.jpg" alt="elvinthedon on the street" loading="lazy" width="1200" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-street-chain.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-studio-standing.jpg" alt="ElvinTheDon standing, studio" loading="lazy" width="1280" height="1600" />
+          <img src="assets/photos/elvinthedon-studio-standing.jpg" alt="elvinthedon standing, studio" loading="lazy" width="1280" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-standing.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-bike-lean.jpg" alt="ElvinTheDon leaning on a motorbike" loading="lazy" width="1600" height="1200" />
+          <img src="assets/photos/elvinthedon-bike-lean.jpg" alt="elvinthedon leaning on a motorbike" loading="lazy" width="1600" height="1200" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-bike-lean.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-street-fence.jpg" alt="ElvinTheDon, street portrait" loading="lazy" width="1200" height="1600" />
+          <img src="assets/photos/elvinthedon-street-fence.jpg" alt="elvinthedon, street portrait" loading="lazy" width="1200" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-street-fence.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon-studio-profile.jpg" alt="ElvinTheDon in profile, studio" loading="lazy" width="1066" height="1600" />
+          <img src="assets/photos/elvinthedon-studio-profile.jpg" alt="elvinthedon in profile, studio" loading="lazy" width="1066" height="1600" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon-studio-profile.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
         <figure class="glass">
-          <img src="assets/photos/elvinthedon1.jpg" alt="ElvinTheDon" loading="lazy" width="1800" height="1800" />
+          <img src="assets/photos/elvinthedon1.jpg" alt="elvinthedon" loading="lazy" width="1800" height="1800" />
           <figcaption><a class="dl" href="assets/photos/full/elvinthedon1.jpg" download>Download full-res &darr;</a></figcaption>
         </figure>
       </div>
@@ -761,7 +766,7 @@
 </main>
 
 <footer>
-  <span>ElvinTheDon &mdash; presented by
+  <span>elvinthedon &mdash; presented by
     <a href="https://hektamusicgroup.com" rel="noopener">Hekta Music Group</a>.</span>
   <span>Press contact: <a href="mailto:team@hektamusicgroup.com">team@hektamusicgroup.com</a></span>
 </footer>
