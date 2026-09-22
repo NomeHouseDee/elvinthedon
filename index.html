@@ -344,6 +344,49 @@
     .prose { max-width: 940px; }
     .prose .body-copy { max-width: 68ch; }
 
+
+    /* --- PRESS RELEASE ---------------------------------------------------
+       One pane, like the bio. The release reads top to bottom: headline,
+       lede, body, then the facts block an editor actually copies from.
+       Lyric quotes are set in accent oxblood against a left rule so they
+       read as quoted material and not as the label's own prose. */
+    .pr-headline {
+      font-size: clamp(1.55rem, 3.1vw, 2.35rem); font-weight: 800;
+      letter-spacing: -0.02em; line-height: 1.1; text-transform: none;
+      font-variation-settings: 'opsz' 72; max-width: 22ch; margin-bottom: 20px;
+    }
+    .pr-lede {
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.5;
+      max-width: 54ch; color: var(--ink); margin-bottom: 28px;
+    }
+    .pr-quote {
+      margin: 0 0 22px; padding: 4px 0 4px 22px;
+      border-left: 2px solid var(--accent);
+      font-size: clamp(1.02rem, 1.4vw, 1.18rem); line-height: 1.55;
+      font-style: italic; color: var(--accent-deep); max-width: 52ch;
+    }
+    .pr-rule {
+      border: 0; border-top: 1px solid var(--glass-edge);
+      margin: 36px 0 30px; max-width: 100%;
+    }
+    .pr-sub {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
+    }
+    /* Two columns so a journalist can scan the facts; collapses to a
+       stacked list on narrow screens rather than squeezing the values. */
+    .pr-facts { display: grid; grid-template-columns: auto 1fr; gap: 10px 26px; margin: 0; }
+    .pr-facts dt {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-soft); padding-top: 3px;
+    }
+    .pr-facts dd { margin: 0; font-size: 1rem; line-height: 1.45; color: var(--ink); }
+    @media (max-width: 560px) {
+      .pr-facts { grid-template-columns: 1fr; gap: 2px; }
+      .pr-facts dd { margin-bottom: 14px; }
+    }
+    .pr-dl { margin-top: 30px; }
+
     /* --- NUMBERS --------------------------------------------------------- */
     .stat-grid {
       display: grid; gap: 16px;
@@ -714,15 +757,15 @@
       <ul class="release-list">
         <li class="glass">
           <a class="rel-art-link" href="assets/photos/full/no-love-artwork.jpg" download
-             title="Download the &#x27;no love&#x27; cover artwork">
+             title="Download the &#x27;no love!&#x27; cover artwork">
             <img class="rel-art" src="assets/photos/no-love-artwork.jpg"
-                 alt="&#x27;no love&#x27; single artwork" loading="lazy"
+                 alt="&#x27;no love!&#x27; single artwork" loading="lazy"
                  width="1200" height="1200" />
           </a>
           <div class="rel-meta">
             <div class="rel-head">
               <span class="rel-year">2026</span>
-              <span class="rel-title sheen">&#x27;no love&#x27;</span>
+              <span class="rel-title sheen">&#x27;no love!&#x27;</span>
               <span class="rel-type">single</span>
             </div>
             <div class="rel-note">
@@ -731,10 +774,82 @@
             </div>
           </div>
           <a class="record-cta"
-             href="mailto:team@hektamusicgroup.com?subject=%27no%20love%27%20%E2%80%94%20early%20access%20request"
-             aria-label="Click here to request early access to &#x27;no love&#x27;"><svg class="record" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="49" fill="#7A2E2E"/><path d="M50 1a49 49 0 0 1 34.6 83.6L50 50Z" fill="#ffffff" opacity=".10"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff" stroke-opacity=".26" stroke-width="1.8"/><circle cx="50" cy="50" r="35" fill="none" stroke="#ffffff" stroke-opacity=".20" stroke-width="1.8"/><circle cx="50" cy="50" r="28" fill="none" stroke="#ffffff" stroke-opacity=".15" stroke-width="1.8"/><circle cx="50" cy="50" r="21" fill="none" stroke="#ffffff" stroke-opacity=".11" stroke-width="1.8"/><circle cx="50" cy="50" r="15" fill="#EFEBE4"/><path d="M50 35a15 15 0 0 1 0 30Z" fill="#C9BCAE"/><circle cx="50" cy="50" r="3.2" fill="#5E2020"/></svg><span class="record-label">Click here to request early access</span></a>
+             href="mailto:team@hektamusicgroup.com?subject=%27no%20love%21%27%20%E2%80%94%20early%20access%20request"
+             aria-label="Click here to request early access to &#x27;no love!&#x27;"><svg class="record" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="49" fill="#7A2E2E"/><path d="M50 1a49 49 0 0 1 34.6 83.6L50 50Z" fill="#ffffff" opacity=".10"/><circle cx="50" cy="50" r="42" fill="none" stroke="#ffffff" stroke-opacity=".26" stroke-width="1.8"/><circle cx="50" cy="50" r="35" fill="none" stroke="#ffffff" stroke-opacity=".20" stroke-width="1.8"/><circle cx="50" cy="50" r="28" fill="none" stroke="#ffffff" stroke-opacity=".15" stroke-width="1.8"/><circle cx="50" cy="50" r="21" fill="none" stroke="#ffffff" stroke-opacity=".11" stroke-width="1.8"/><circle cx="50" cy="50" r="15" fill="#EFEBE4"/><path d="M50 35a15 15 0 0 1 0 30Z" fill="#C9BCAE"/><circle cx="50" cy="50" r="3.2" fill="#5E2020"/></svg><span class="record-label">Click here to request early access</span></a>
         </li>
       </ul>
+    </div>
+  </section>
+
+
+
+  <!-- ============================================================
+       SECTION: PRESS RELEASE
+       The full release for the current single, readable in place and
+       downloadable as a PDF an editor can forward or file. When the
+       next single is announced, replace the whole pane — an EPK
+       carrying last cycle's release reads as an inactive project.
+       ============================================================ -->
+  <section class="sec" id="press-release">
+    <div class="ghost" aria-hidden="true">Release</div>
+    <div class="wrap">
+      <p class="marker">Press release</p>
+      <h2 class="sec-title sheen">Press release</h2>
+      <div class="pane prose glass">
+        <h3 class="pr-headline sheen">elvinthedon set to release new single &lsquo;no love!&rsquo;</h3>
+
+        <p class="pr-lede">Ghanaian artist and songwriter elvinthedon is set to release his new single, &lsquo;no love!&rsquo;, on 25th September 2026.</p>
+
+        <p class="body-copy">Produced by Ayomz, Jelle Windstand, and Max Ids de Haan, the song comes from a very personal place. It is about giving your all to the people you love, constantly trying to prove that you care, and eventually realizing that you have given so much that there is barely anything left for yourself.</p>
+
+        <p class="body-copy">The song opens with:</p>
+
+        <blockquote class="pr-quote">&ldquo;The moon watched me bleed loyalty into a cup that was never meant to hold it.&rdquo;</blockquote>
+
+        <p class="body-copy">That line sets the mood for the rest of the record. There is a lot of disappointment in &lsquo;no love!&rsquo;, but there is also acceptance. Instead of continuing to explain himself or convince people of what he has done for them, elvinthedon chooses to walk away with the lessons.</p>
+
+        <p class="body-copy">The hook brings that feeling home:</p>
+
+        <blockquote class="pr-quote">&ldquo;So lately, I be asking for no love,<br />Proving that you&rsquo;re loyal, getting so tough.<br />Giving what I can and losing all my self-worth.&rdquo;</blockquote>
+
+        <p class="body-copy">For elvinthedon, the song is not simply about romantic love. It touches on friendships, loyalty, expectations, and the pressure to always be there for everyone else. Sometimes, doing everything you can still doesn&rsquo;t make people see your worth.</p>
+
+        <p class="body-copy">The second verse gets even more personal, touching on the things he kept inside and struggled to talk about:</p>
+
+        <blockquote class="pr-quote">&ldquo;I couldn&rsquo;t talk to be sane, so I hid them in the stories that I wrote.&rdquo;</blockquote>
+
+        <p class="body-copy">That became an important part of making the song. What couldn&rsquo;t always be said out loud found its way into the music.</p>
+
+        <p class="body-copy">At its heart, &lsquo;no love!&rsquo; is about being tired of proving yourself. It is about carrying pain, giving too much, and finally understanding that protecting your own peace and self-worth matters too. The song doesn&rsquo;t pretend that walking away makes everything disappear. It simply captures that moment when you realize you&rsquo;ve reached your limit.</p>
+
+        <hr class="pr-rule" />
+
+        <p class="pr-sub">Release details</p>
+        <dl class="pr-facts">
+          <dt>Artist</dt><dd>elvinthedon</dd>
+          <dt>Real name</dt><dd>Elvin Kofi Barnieh Akotey</dd>
+          <dt>Title</dt><dd>&lsquo;no love!&rsquo;</dd>
+          <dt>Release date</dt><dd>25 September 2026</dd>
+          <dt>Songwriter &amp; performer</dt><dd>elvinthedon (Elvin Kofi Barnieh Akotey)</dd>
+          <dt>Producers</dt><dd>Ayomz, Jelle Windstand, Max Ids de Haan</dd>
+          <dt>Genre</dt><dd>Hip hop</dd>
+          <dt>Label</dt><dd>theDonSociety &amp; Hekta Music Group</dd>
+          <dt>Available on</dt><dd>Major streaming platforms</dd>
+        </dl>
+
+        <hr class="pr-rule" />
+
+        <p class="pr-sub">About elvinthedon</p>
+        <p class="body-copy">elvinthedon is a songwriter and performer who uses music to tell honest stories about life, relationships, pain, and personal experiences.</p>
+        <p class="body-copy">His writing often comes from places that are difficult to explain in conversation. Through music, he turns those experiences into stories that other people can hear themselves in.</p>
+        <p class="body-copy">With &lsquo;no love!&rsquo;, elvinthedon opens up about loyalty, emotional exhaustion, and the point where giving to others begins to come at the cost of yourself.</p>
+        <p class="body-copy">&lsquo;no love!&rsquo; arrives on 25 September 2026.</p>
+
+        <p class="pr-dl">
+          <a class="dl" href="assets/elvinthedon-no-love-press-release.pdf" download>Press release (PDF) &darr;</a>
+          <a class="dl" href="mailto:team@hektamusicgroup.com?subject=%27no%20love%21%27%20%E2%80%94%20press%20enquiry">Press enquiries</a>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -750,6 +865,7 @@
         <p class="onesheet">
           <a class="dl" href="assets/elvinthedon-epk-deck.pdf" download>Full EPK deck (PDF) &darr;</a>
           <a class="dl" href="assets/elvinthedon-onesheet.pdf" download>One-sheet (PDF) &darr;</a>
+          <a class="dl" href="assets/elvinthedon-no-love-press-release.pdf" download>Press release (PDF) &darr;</a>
         </p>
         <p class="socials">
           <a href="https://www.instagram.com/elvinthedon/" rel="noopener">Instagram</a>
